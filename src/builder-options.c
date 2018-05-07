@@ -814,10 +814,12 @@ get_sdk_flags (BuilderOptions *self, BuilderContext *context, const char *(*meth
     }
   {
     BuilderSdkConfig *sdk_config = builder_context_get_sdk_config (context);
-    const char *sdk_flags = (*method) (sdk_config);
-    return sdk_flags;
+    if (sdk_config)
+      return (*method) (sdk_config);
   }
+  return NULL;
 }
+
 const char *
 builder_options_get_cflags (BuilderOptions *self, BuilderContext *context)
 {
